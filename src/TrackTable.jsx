@@ -39,7 +39,6 @@ export default function TrackTable(props) {
            )
         }
 
-        console.warn(`No spotify results exist for ${track.title} - ${track.artist}`);
         return (
           <Table.Row key={track.uuid}>
             <Table.Cell content={track.title} key={ColumnType.TITLE} />
