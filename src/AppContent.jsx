@@ -1,6 +1,7 @@
 import React, { useState, useReducer } from 'react';
 import Dropbox from './Dropbox';
 import TrackTable from './TrackTable';
+import CreatePlaylist from './CreatePlaylist';
 import { fetchSpotifyEquivalents } from './parser';
 
 function reducer(state, action) {
@@ -9,7 +10,9 @@ function reducer(state, action) {
       return action.data;
     case 'spotify_tracks':
       return action.tracks.reduce((acc, track) => {
-        acc[track.uuid].spotify = track;
+        if (track) {
+          acc[track.uuid].spotify = track;
+        }
         return acc;
       }, { ...state });
     default:
@@ -43,6 +46,7 @@ export default function AppContent() {
   return (
     <>
       <p>Found matches for {matchCount}/{trackArray.length} ({Math.round(matchCount/trackArray.length * 100)}%) of your tracks.</p>
+      <CreatePlaylist />
       <TrackTable tracks={trackArray} />
     </>
   );

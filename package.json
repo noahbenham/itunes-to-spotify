@@ -9,11 +9,17 @@
     "react": "^16.7.0-alpha.2",
     "react-dom": "^16.7.0-alpha.2",
     "react-dropzone": "^7.0.1",
+    "react-intl": "^2.7.2",
     "react-scripts": "2.1.1",
     "terra-base": "^3.30.0",
-    "terra-table": "^2.31.1"
+    "terra-button": "^2.31.1",
+    "terra-form-input": "^1.31.1",
+    "terra-table": "^2.31.1",
+    "terra-toolkit": "^4.19.0"
   },
   "scripts": {
+    "aggregate-translations": "tt-aggregate-translations -b ./ -d ./src/**/translations -d ./translations -o ./src/aggregated-translations",
+    "prestart": "npm run aggregate-translations",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

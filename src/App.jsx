@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import querystring from 'querystring';
+import { IntlProvider } from 'react-intl';
 import AppContent from './AppContent';
 import { doFetch, setRequestToken } from './fetch';
 import './App.scss';
+import { messages } from './aggregated-translations/en';
 
 function doAuth() {
   const query = querystring.stringify({
@@ -42,9 +44,11 @@ export default function App() {
   }
 
   return (
-    <div className="App">
-      <h1>Hi, {userInfo.id}.</h1>
-      <AppContent />
-    </div>
+    <IntlProvider locale="en" messages={messages}>
+      <div className="App">
+        <h1>Hi, {userInfo.id}.</h1>
+        <AppContent />
+      </div>
+    </IntlProvider>
   )
 }

@@ -17,13 +17,15 @@ export function parseXml(rawFileData) {
 }
 
 export async function fetchSpotifyEquivalents(tracks) {
-  const promises = Object.values(tracks).map((track, ind) => {
+  const promises = Object.values(tracks).map(async (track, ind) => {
     const fetchResponse = doFetch('search?' + querystring.stringify({
       q: `${track.title} ${track.artist}`,
       type: 'track',
     }));
     return fetchResponse.then(response => {
-      response.uuid = tracks[ind].uuid;
+      if (response) {
+        response.uuid = tracks[ind].uuid;
+      }
       return response;
     });
   });
