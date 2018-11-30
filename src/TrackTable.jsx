@@ -9,9 +9,7 @@ const ColumnType = {
 }
 
 export default function TrackTable(props) {
-  if (!props.tracks.length) {
-    return null;
-  }
+  if (!props.tracks.length) return null;
 
   return (
     <Table isStriped>
@@ -24,9 +22,6 @@ export default function TrackTable(props) {
       {props.tracks.map(track => {
         const spotifyTracks = track.spotify ? track.spotify.tracks.items : [];
         if (spotifyTracks.length) {
-          if (spotifyTracks.length > 1 ) {
-            console.warn(`Multiple spotify results exist for ${track.title} - ${track.artist}`);
-          }
           const spotifyTrack = spotifyTracks[0];
           return (
             <Table.Row key={track.uuid}>
@@ -43,7 +38,7 @@ export default function TrackTable(props) {
           <Table.Row key={track.uuid}>
             <Table.Cell content={track.title} key={ColumnType.TITLE} />
             <Table.Cell content={track.artist} key={ColumnType.ARTIST} />
-            <Table.Cell content="?" key={ColumnType.SPOTIFY} />
+            <Table.Cell content="---" key={ColumnType.SPOTIFY} />
           </Table.Row>
          )
       })}

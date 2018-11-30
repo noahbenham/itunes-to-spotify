@@ -24,7 +24,11 @@ export default function AppContent() {
 
   const trackArray = Object.values(trackData);
 
-  if (trackArray.length && !spotifyFetchStatus) {
+  if (!trackArray.length) {
+    return <Dropbox onValidRead={dispatchTrackAction} />;
+  }
+
+  if (!spotifyFetchStatus) {
     setSpotifyFetchStatus(-1); // sentinel for fetch in-progress
     fetchSpotifyEquivalents(trackData).then(tracks => {
       setSpotifyFetchStatus('done');
@@ -38,11 +42,7 @@ export default function AppContent() {
 
   return (
     <>
-      {trackArray.length
-        ? <p>Found matches for {matchCount}/{trackArray.length} ({Math.round(matchCount/trackArray.length * 100)}%) of your tracks.</p>
-        : <Dropbox onValidRead={dispatchTrackAction} />
-      }
-      {/* <button onClick={fetchMore}>Fetch more tracks</button> */}
+      <p>Found matches for {matchCount}/{trackArray.length} ({Math.round(matchCount/trackArray.length * 100)}%) of your tracks.</p>
       <TrackTable tracks={trackArray} />
     </>
   );
