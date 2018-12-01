@@ -17,17 +17,16 @@ export function parseXml(rawFileData) {
 }
 
 export async function fetchSpotifyEquivalents(tracks) {
-  const promises = Object.values(tracks).map(async (track, ind) => {
-    const fetchResponse = doFetch('search?' + querystring.stringify({
+  const promises = Object.values(tracks).map(async (track, ind) =>
+    doFetch('search?' + querystring.stringify({
       q: `${track.title} ${track.artist}`,
       type: 'track',
+    }))
+    .then(async (response) => {
+      const json = await response.json();
+      json.retryAfter = response.headers.get('Retry-After');
+      json.uuid = tracks[ind].uuid;
+      return json;
     }));
-    return fetchResponse.then(response => {
-      if (response) {
-        response.uuid = tracks[ind].uuid;
-      }
-      return response;
-    });
-  });
   return Promise.all(promises);
 }

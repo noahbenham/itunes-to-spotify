@@ -31,7 +31,11 @@ export default function App() {
       setRequestToken(accessToken);
     }
   } else if (!userInfo) {
-    doFetch('me').then(response => setUserInfo(response));    
+    doFetch('me').then((response) => {
+      if (response.ok) {
+        response.json().then(setUserInfo);
+      }
+    });
   }
 
   if (!authToken || !userInfo) {

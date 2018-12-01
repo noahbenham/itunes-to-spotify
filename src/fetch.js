@@ -9,17 +9,13 @@ export function setRequestToken(tokenToSet) {
  * @param {*} urlSuffix 
  * @param {*} options 
  */
-export async function doFetch(urlSuffix, options = {}) {
+export function doFetch(urlSuffix, options = {}) {
   return fetch(`https://api.spotify.com/v1/${urlSuffix}`, {
     headers:{
-      'Authorization': `'Bearer ${authToken}`
+      'Authorization': `'Bearer ${authToken}`,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
     },
     ...options,
-  }).then(response => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      console.warn(response);
-    }
   });
 }

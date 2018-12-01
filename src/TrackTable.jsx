@@ -20,7 +20,7 @@ export default function TrackTable(props) {
       </Table.Header>
       <Table.Rows>
       {props.tracks.map(track => {
-        const spotifyTracks = track.spotify ? track.spotify.tracks.items : [];
+        const spotifyTracks = track.spotify ? track.spotify.items : [];
         if (spotifyTracks.length) {
           const spotifyTrack = spotifyTracks[0];
           return (
